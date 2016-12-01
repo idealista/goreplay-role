@@ -1,0 +1,20 @@
+---
+gor_user: gor
+gor_group: gor
+gor_root_dir: /opt/gor
+gor_bin_dir: "{{ gor_root_dir }}/bin"
+gor_output_dir: "{{ gor_root_dir }}/out"
+gor_version: 0.15.1
+gor_url: "https://github.com/buger/gor/releases/download/v{{ gor_version }}"
+gor_package: "gor_v{{ gor_version }}_x64.tar.gz"
+
+gor_enabled: False # Gor disabled by default
+
+# gor Options not related to input and output fields, chunk size, buffer behaviour....
+# gor_options:
+#   - output-file-queue-limit 0
+#   - output-file-flush-interval 30
+
+# Set gor_input and gor_output to set the behaviour and disable or enable it
+# gor_input: '--input-raw :8080'
+# gor_output: '--output-http="http://someserver:8080"'

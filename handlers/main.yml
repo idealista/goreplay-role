@@ -1,0 +1,5 @@
+---
+- name: restart gor
+  service:
+    name: gor
+    state: "{{ 'restarted' if gor_enabled else 'stopped' }}"

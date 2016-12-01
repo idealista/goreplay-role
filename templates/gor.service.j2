@@ -1,0 +1,14 @@
+[Unit]
+Description=go replay
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+Restart=on-failure
+ExecStart=/bin/sh -c "{{ gor_bin_dir }}/gor {{ gor_input }} {{ gor_output }}{% if gor_options is defined %}{% for option in gor_options %} --{{ option }}{% if not loop.last %} {% endif %}{% endfor %}{% endif%}"
+User={{ gor_user }}
+ExecReload=/bin/kill -HUP $MAINPID
+KillSignal=SIGTERM
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,4 @@
+tests/playbok.retry
+tests/.cache
+.molecule
+.vagrant
