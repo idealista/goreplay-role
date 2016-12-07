@@ -56,12 +56,12 @@
     dest: /usr/bin/gor
     state: link
 
-- name: Copy gor.service file
+- name: Template out gor.service file
   template:
     src: gor.service.j2
     dest: /etc/systemd/system/gor.service
     mode: '0755'
-  notify: restart gor
+  notify: update gor service file
 
 - name: Register systemd service
   service:

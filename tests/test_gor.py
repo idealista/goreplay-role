@@ -29,10 +29,7 @@ def test_gor_binary(File, AnsibleDefaults):
 def test_gor_service(File, Service, Socket, Interface, Hostname):
     assert File("/etc/systemd/system/gor.service").exists
     assert not Service("gor").is_enabled
-    if "test01" or "prod02" in Hostname:
-        assert not Service("gor").is_running
-    else:
-        assert Service("gor").is_running
+    assert Service("gor").is_running
 
 
 def test_gor_functionality(File, Hostname):

@@ -1,4 +1,9 @@
 ---
+- name: update gor service file # This is not needed on ansible 2.2 with systemd module
+  command: >
+    systemctl daemon-reload
+  notify: restart gor
+
 - name: restart gor
   service:
     name: gor
