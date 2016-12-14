@@ -110,7 +110,7 @@ molecule test
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
+For the versions available, see the [tags on this repository](https://github.com/idealista-tech/gor-role/tags).
 
 Additionaly you can see what change in each version in the [CHANGELOG.md](CHANGELOG.md) file.
 
