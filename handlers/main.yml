@@ -1,10 +1,6 @@
 ---
-- name: update gor service file # This is not needed on ansible 2.2 with systemd module
-  command: >
-    systemctl daemon-reload
-  notify: restart gor
-
 - name: restart gor
-  service:
+  systemd:
     name: gor
-    state: "{{ 'restarted' if gor_enabled else 'stopped' }}"
+    state: restarted
+  when: gor_service_state != 'stopped'
