@@ -1,16 +1,16 @@
 ---
-- name: Ensure gor group
+- name: GOR | Ensure gor group
   group:
     name: "{{ gor_group }}"
 
-- name: Ensure gor user
+- name: GOR | Ensure gor user
   user:
     name: "{{ gor_user }}"
     group: "{{ gor_group }}"
     home: /bin/false
     createhome: yes
 
-- name: Ensure gor dirs exists
+- name: GOR | Ensure gor dirs exists
   file:
     path: "{{ item }}"
     state: directory
@@ -20,20 +20,20 @@
     - "{{ gor_bin_dir }}"
     - "{{ gor_output_dir }}"
 
-- name: Download gor
+- name: GOR | Download gor
   get_url:
     url: "{{ gor_url }}/{{ gor_package }}"
     dest: "/tmp/{{ gor_package }}"
   register: download_gor
 
-- name: Extract gor
+- name: GOR | Extract gor
   unarchive:
     src: "/tmp/{{ gor_package }}"
     dest: "/tmp/"
     copy: no
   when: download_gor|changed
 
-- name: Copy binary
+- name: GOR | Copy binary
   copy:
     src: "/tmp/gor"
     dest: "{{ gor_bin_dir }}/gor"
@@ -43,28 +43,36 @@
     mode: '0755'
   notify: restart gor
 
-- name: Ensure gor can open raw sockets
+- name: GOR | Ensure gor can open raw sockets
   command: >
     setcap "cap_net_raw,cap_net_admin+eip" {{ gor_bin_dir }}/gor
   changed_when: false
   tags:
     - skip_ansible_lint
 
-- name: Link binary
+- name: GOR | Link binary
   file:
     src: "{{ gor_bin_dir }}/gor"
     dest: /usr/bin/gor
     state: link
 
-- name: Template out gor.service file
+- name: GOR | Template out gor.service file
   template:
     src: gor.service.j2
     dest: /etc/systemd/system/gor.service
     mode: '0755'
-  notify: update gor service file
+  notify: restart gor
 
-- name: Register systemd service
-  service:
+- name: GOR | Template out gor environment file
+  template:
+    src: gor.environment.j2
+    dest: /etc/default/gor
+    mode: '0755'
+  notify: restart gor
+
+- name: GOR | Configuring service
+  systemd:
     name: gor
-    enabled: no
-    state: "{{ 'started' if gor_enabled else 'stopped' }}"
+    state: "{{ gor_service_state }}"
+    enabled: "{{ gor_service_enabled }}"
+    daemon_reload: yes

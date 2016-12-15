@@ -1,4 +1,4 @@
 ---
 gor_input: --input-raw :8080
 gor_output: --output-http=http://test01:8080
-gor_enabled: True
+gor_service_state: started
