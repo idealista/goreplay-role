@@ -16,6 +16,6 @@
         url: "http://{{ ansible_nodename }}:8080"
       until: False
       delay: 1
-      retries: 15
+      retries: 20
       changed_when: False
       failed_when: False
