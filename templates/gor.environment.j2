@@ -1,0 +1,5 @@
+GOR_INPUT={{ gor_input }}
+GOR_OUTPUT={{ gor_output }}
+{% if gor_options is defined %}
+GOR_OPTIONS={% for option in gor_options %}--{{ option }}{% if not loop.last %} {% endif %}{% endfor %}
+{% endif%}
