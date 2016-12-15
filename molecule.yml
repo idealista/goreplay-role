@@ -21,6 +21,16 @@ molecule:
   # directory containing group_vars to use with ansible
   group_vars: ../tests/group_vars
 
+  test:
+    sequence:
+      - destroy
+      - syntax
+      - create
+      - converge
+      - idempotence
+      - verify
+      - destroy
+
 # ansible related config
 ansible:
   playbook: tests/playbook.yml
