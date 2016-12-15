@@ -67,7 +67,7 @@
   template:
     src: gor.environment.j2
     dest: /etc/default/gor
-    mode: '0755'
+    mode: '0644'
   notify: restart gor
 
 - name: GOR | Configuring service
