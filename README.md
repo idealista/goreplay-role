@@ -122,7 +122,7 @@ See also the list of [contributors](https://github.com/idealista-tech/gor-role/c
 
 ## License
 
-![Apache 2.0 Licence](http://img.shields.io/badge/license-Apache-2.0-blue.svg?style=flat-square)
+![Apache 2.0 Licence](https://img.shields.io/hexpm/l/plug.svg)
 
 This project is licensed under the [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0) license - see the [LICENSE.txt](LICENSE.txt) file for details.
 
