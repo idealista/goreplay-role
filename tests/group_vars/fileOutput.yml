@@ -4,4 +4,4 @@ gor_output: "--output-file={{ gor_output_dir }}/requests.gor"
 gor_service_enabled: no
 gor_service_state: started
 gor_options:
-  - output-file-flush-interval 10s
+  - output-file-flush-interval=2s

@@ -32,9 +32,11 @@ def test_gor_service(File, Service, Socket, Interface, Hostname):
     assert Service("gor").is_running
 
 
-def test_gor_functionality(File, Hostname):
+def test_gor_functionality(File, Sudo, Hostname):
     requests = File("/opt/gor/out/requests_0.gor")
-    if Hostname in ('prod02'):
+    if Hostname in ("test01", "prod02"):
         assert requests.exists
+        with Sudo("gor"):
+            assert requests.contains("ansible-httpget")
     else:
         assert not requests.exists
