@@ -1,5 +1,0 @@
-{
-  "tests/test_gor.py::test_gor_functionality[ansible://prod01]": true, 
-  "tests/test_gor.py::test_gor_functionality[ansible://prod02]": true, 
-  "tests/test_gor.py::test_gor_functionality[ansible://test01]": true
-}
