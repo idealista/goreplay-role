@@ -18,12 +18,12 @@ def test_gor_template_user(User, Group, AnsibleDefaults):
 
 
 def test_gor_binary(File, AnsibleDefaults):
-    gor = File(AnsibleDefaults["gor_bin_dir"] + "/gor")
+    gor = File(AnsibleDefaults["gor_bin_dir"] + "/goreplay")
     assert gor.user == AnsibleDefaults["gor_user"]
     assert gor.group == AnsibleDefaults["gor_group"]
     assert File("/usr/bin/gor").exists
     assert File("/usr/bin/gor").is_symlink
-    assert File("/usr/bin/gor").linked_to == AnsibleDefaults["gor_root_dir"] + "/bin/gor"
+    assert File("/usr/bin/gor").linked_to == AnsibleDefaults["gor_root_dir"] + "/bin/goreplay"
 
 
 def test_gor_service(File, Service, Socket, Interface, Hostname):
@@ -33,8 +33,8 @@ def test_gor_service(File, Service, Socket, Interface, Hostname):
 
 
 def test_gor_functionality(File, Sudo, Hostname):
-    requests = File("/opt/gor/out/requests_0.gor")
-    if Hostname in ("test01", "prod02"):
+    requests = File("/opt/gor/out/requests.gor")
+    if Hostname in ("prod02.vm"):
         assert requests.exists
         with Sudo("gor"):
             assert requests.contains("ansible-httpget")

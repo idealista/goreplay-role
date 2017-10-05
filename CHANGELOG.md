@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Added
+- *Adding support for 0.16.1 version* @dortegau
 
 ## [0.0.3]
 ### Added
