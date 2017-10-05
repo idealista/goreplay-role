@@ -33,7 +33,7 @@ def test_gor_service(File, Service, Socket, Interface, Hostname):
 
 
 def test_gor_functionality(File, Sudo, Hostname):
-    requests = File("/opt/gor/out/requests.gor")
+    requests = File("/opt/gor/out/requests_0.gor")
     if Hostname in ("prod02.vm"):
         assert requests.exists
         with Sudo("gor"):
