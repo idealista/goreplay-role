@@ -32,11 +32,13 @@
     dest: "/tmp/"
     copy: no
   when: download_gor|changed
+  tags:
+    skip_ansible_lint
 
 - name: GOR | Copy binary
   copy:
-    src: "/tmp/gor"
-    dest: "{{ gor_bin_dir }}/gor"
+    src: "/tmp/goreplay"
+    dest: "{{ gor_bin_dir }}/goreplay"
     remote_src: True
     owner: "{{ gor_user }}"
     group: "{{ gor_group }}"
@@ -45,14 +47,14 @@
 
 - name: GOR | Ensure gor can open raw sockets
   command: >
-    setcap "cap_net_raw,cap_net_admin+eip" {{ gor_bin_dir }}/gor
+    setcap "cap_net_raw,cap_net_admin+eip" {{ gor_bin_dir }}/goreplay
   changed_when: false
   tags:
     - skip_ansible_lint
 
 - name: GOR | Link binary
   file:
-    src: "{{ gor_bin_dir }}/gor"
+    src: "{{ gor_bin_dir }}/goreplay"
     dest: /usr/bin/gor
     state: link
 

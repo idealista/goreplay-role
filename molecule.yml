@@ -40,7 +40,7 @@ vagrant:
   # molecule's --platform option will look for these names
   raw_config_args:
     - "landrush.enabled = true"
-    - "landrush.tld = ''"
+    - "landrush.tld = 'vm'"
     - "landrush.guest_redirect_dns = false"
   platforms:
     - name: Debian
@@ -54,7 +54,7 @@ vagrant:
         cpus: 1
 
   instances:
-    - name: prod01
+    - name: prod01.vm
       ansible_groups:
         - httpOutput
         - prod
@@ -62,7 +62,7 @@ vagrant:
         - network_name: private_network
           type: dhcp
           auto_config: true
-    - name: prod02
+    - name: prod02.vm
       ansible_groups:
         - prod
         - fileOutput
@@ -70,7 +70,7 @@ vagrant:
         - network_name: private_network
           type: dhcp
           auto_config: true
-    - name: test01
+    - name: test01.vm
       ansible_groups:
         - test01
         - fileOutput

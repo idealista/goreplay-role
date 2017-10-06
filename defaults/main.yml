@@ -4,9 +4,9 @@ gor_group: gor
 gor_root_dir: /opt/gor
 gor_bin_dir: "{{ gor_root_dir }}/bin"
 gor_output_dir: "{{ gor_root_dir }}/out"
-gor_version: 0.15.1
-gor_url: "https://github.com/buger/gor/releases/download/v{{ gor_version }}"
-gor_package: "gor_v{{ gor_version }}_x64.tar.gz"
+gor_version: 0.16.1
+gor_url: "https://github.com/buger/goreplay/releases/download/v{{ gor_version }}"
+gor_package: "gor_{{ gor_version }}_x64.tar.gz"
 
 # start on boot
 gor_service_enabled: no # Gor disabled by default

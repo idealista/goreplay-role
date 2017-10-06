@@ -5,7 +5,7 @@
   post_tasks:
     - name: Test gor with gor
       command: >
-        {{ gor_bin_dir }}/gor file-server :8080
+        {{ gor_bin_dir }}/goreplay file-server :8080
       async: 30
       changed_when: false
 
@@ -14,8 +14,8 @@
     - name: Test file-server
       uri:
         url: "http://{{ ansible_nodename }}:8080"
-      until: False
+      register: result
+      until: result.status == 200
       delay: 1
       retries: 20
       changed_when: False
-      failed_when: False
