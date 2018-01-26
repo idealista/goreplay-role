@@ -52,7 +52,7 @@ Use in a playbook:
   roles:
     - { role: gor,
         gor_input: '--input-raw :80',
-        gor_output: ''--output-http=http://test01:80',
+        gor_output: '--output-http=http://test01:80',
         gor_service_enabled: yes
       }
 ```
