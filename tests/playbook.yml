@@ -7,6 +7,7 @@
       command: >
         {{ gor_bin_dir }}/goreplay file-server :8080
       async: 30
+      poll: 0
       changed_when: false
 
 - hosts: prod
