@@ -1,8 +1,8 @@
 ---
 galaxy_info:
   company: Idealista S.A.
-  description: GOR role, to replay traffic
-  min_ansible_version: 2.2
+  description: GoReplay role, to replay traffic
+  min_ansible_version: 2.4.0.0
   license: Apache 2.0
   platforms:
     - name: Debian

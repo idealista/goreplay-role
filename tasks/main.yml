@@ -5,11 +5,11 @@
     - install
     - goreplay_install
 
-- name: GoReplay | Config
-  import_tasks: config.yml
+- name: GoReplay | Configure
+  import_tasks: configure.yml
   tags:
-    - config
-    - goreplay_config
+    - configure
+    - goreplay_configure
 
 - name: GoReplay | Service
   import_tasks: service.yml
