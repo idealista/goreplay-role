@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 - *Adding support for 0.16.1 version* @dortegau
+- [#1](https://github.com/idealista/gor-role/issues/1)*Added CircleCI integration* @jnogol
+
+### Deleted
+- *Delete writing output to file test* @jnogol
 
 ## [0.0.3]
 ### Added
