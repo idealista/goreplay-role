@@ -1,23 +1,21 @@
 ---
-gor_user: gor
-gor_group: gor
-gor_root_dir: /opt/gor
-gor_bin_dir: "{{ gor_root_dir }}/bin"
-gor_output_dir: "{{ gor_root_dir }}/out"
-gor_version: 0.15.1
-gor_url: "https://github.com/buger/gor/releases/download/v{{ gor_version }}"
-gor_package: "gor_v{{ gor_version }}_x64.tar.gz"
+goreplay_user: goreplay
+goreplay_group: goreplay
+goreplay_root_dir: /opt/goreplay
+goreplay_bin_dir: "{{ goreplay_root_dir }}/bin"
+goreplay_output_dir: "{{ goreplay_root_dir }}/out"
+goreplay_version: 0.16.1
 
 # start on boot
-gor_service_enabled: no # Gor disabled by default
+goreplay_service_enabled: no # GoReplay disabled by default
 # current state: started, stopped
-gor_service_state: started
+goreplay_service_state: started
 
-# gor Options not related to input and output fields, chunk size, buffer behaviour....
-# gor_options:
+# GoReplay Options not related to input and output fields, chunk size, buffer behaviour....
+# goreplay_options:
 #   - output-file-queue-limit 0
 #   - output-file-flush-interval 30
 
-# Set gor_input and gor_output to set the behaviour and disable or enable it
-# gor_input: '--input-raw :8080'
-# gor_output: '--output-http="http://someserver:8080"'
+# Set goreplay_input and goreplay_output to set the behaviour and disable or enable it
+# goreplay_input: '--input-raw :8080'
+# goreplay_output: '--output-http="http://someserver:8080"'

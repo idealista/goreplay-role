@@ -12,31 +12,21 @@ def Hostname(TestinfraBackend):
 
 
 def test_gor_template_user(User, Group, AnsibleDefaults):
-    assert Group(AnsibleDefaults["gor_group"]).exists
-    assert User(AnsibleDefaults["gor_user"]).exists
-    assert User(AnsibleDefaults["gor_user"]).group == AnsibleDefaults["gor_group"]
+    assert Group(AnsibleDefaults["goreplay_group"]).exists
+    assert User(AnsibleDefaults["goreplay_user"]).exists
+    assert User(AnsibleDefaults["goreplay_user"]).group == AnsibleDefaults["goreplay_group"]
 
 
 def test_gor_binary(File, AnsibleDefaults):
-    gor = File(AnsibleDefaults["gor_bin_dir"] + "/gor")
-    assert gor.user == AnsibleDefaults["gor_user"]
-    assert gor.group == AnsibleDefaults["gor_group"]
-    assert File("/usr/bin/gor").exists
-    assert File("/usr/bin/gor").is_symlink
-    assert File("/usr/bin/gor").linked_to == AnsibleDefaults["gor_root_dir"] + "/bin/gor"
+    gor = File(AnsibleDefaults["goreplay_bin_dir"] + "/goreplay")
+    assert gor.user == AnsibleDefaults["goreplay_user"]
+    assert gor.group == AnsibleDefaults["goreplay_group"]
+    assert File("/usr/bin/goreplay").exists
+    assert File("/usr/bin/goreplay").is_symlink
+    assert File("/usr/bin/goreplay").linked_to == AnsibleDefaults["goreplay_root_dir"] + "/bin/goreplay"
 
 
 def test_gor_service(File, Service, Socket, Interface, Hostname):
-    assert File("/etc/systemd/system/gor.service").exists
-    assert not Service("gor").is_enabled
-    assert Service("gor").is_running
-
-
-def test_gor_functionality(File, Sudo, Hostname):
-    requests = File("/opt/gor/out/requests_0.gor")
-    if Hostname in ("test01", "prod02"):
-        assert requests.exists
-        with Sudo("gor"):
-            assert requests.contains("ansible-httpget")
-    else:
-        assert not requests.exists
+    assert File("/etc/systemd/system/goreplay.service").exists
+    assert not Service("goreplay").is_enabled
+    assert Service("goreplay").is_running
