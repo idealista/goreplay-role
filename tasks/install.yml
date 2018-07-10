@@ -1,0 +1,59 @@
+---
+- name: GoReplay | Ensure goreplay group
+  group:
+    name: "{{ goreplay_group }}"
+
+- name: GoReplay | Ensure goreplay user
+  user:
+    name: "{{ goreplay_user }}"
+    group: "{{ goreplay_group }}"
+    home: /bin/false
+    createhome: yes
+
+- name: GoReplay | Ensure goreplay dirs exists
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ goreplay_user }}"
+    group: "{{ goreplay_group }}"
+  with_items:
+    - "{{ goreplay_bin_dir }}"
+    - "{{ goreplay_output_dir }}"
+
+- name: GoReplay | Download goreplay
+  get_url:
+    url: "{{ goreplay_url }}/{{ goreplay_package }}"
+    dest: "/tmp/{{ goreplay_package }}"
+  register: download_goreplay
+
+- name: GoReplay | Extract goreplay
+  unarchive:
+    src: "/tmp/{{ goreplay_package }}"
+    dest: "/tmp/"
+    copy: no
+  when: download_goreplay|changed
+  tags:
+    skip_ansible_lint
+
+- name: GoReplay | Copy binary
+  copy:
+    src: "/tmp/goreplay"
+    dest: "{{ goreplay_bin_dir }}/goreplay"
+    remote_src: True
+    owner: "{{ goreplay_user }}"
+    group: "{{ goreplay_group }}"
+    mode: "0755"
+  notify: restart goreplay
+
+- name: GoReplay | Ensure goreplay can open raw sockets
+  command: >
+    setcap "cap_net_raw,cap_net_admin+eip" {{ goreplay_bin_dir }}/goreplay
+  changed_when: false
+  tags:
+    - skip_ansible_lint
+
+- name: GoReplay | Link binary
+  file:
+    src: "{{ goreplay_bin_dir }}/goreplay"
+    dest: /usr/bin/goreplay
+    state: link

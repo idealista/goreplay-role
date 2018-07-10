@@ -1,80 +1,18 @@
 ---
-- name: GOR | Ensure gor group
-  group:
-    name: "{{ gor_group }}"
-
-- name: GOR | Ensure gor user
-  user:
-    name: "{{ gor_user }}"
-    group: "{{ gor_group }}"
-    home: /bin/false
-    createhome: yes
-
-- name: GOR | Ensure gor dirs exists
-  file:
-    path: "{{ item }}"
-    state: directory
-    owner: "{{ gor_user }}"
-    group: "{{ gor_group }}"
-  with_items:
-    - "{{ gor_bin_dir }}"
-    - "{{ gor_output_dir }}"
-
-- name: GOR | Download gor
-  get_url:
-    url: "{{ gor_url }}/{{ gor_package }}"
-    dest: "/tmp/{{ gor_package }}"
-  register: download_gor
-
-- name: GOR | Extract gor
-  unarchive:
-    src: "/tmp/{{ gor_package }}"
-    dest: "/tmp/"
-    copy: no
-  when: download_gor|changed
+- name: GoReplay | Install
+  import_tasks: install.yml
   tags:
-    skip_ansible_lint
+    - install
+    - goreplay_install
 
-- name: GOR | Copy binary
-  copy:
-    src: "/tmp/goreplay"
-    dest: "{{ gor_bin_dir }}/goreplay"
-    remote_src: True
-    owner: "{{ gor_user }}"
-    group: "{{ gor_group }}"
-    mode: '0755'
-  notify: restart gor
-
-- name: GOR | Ensure gor can open raw sockets
-  command: >
-    setcap "cap_net_raw,cap_net_admin+eip" {{ gor_bin_dir }}/goreplay
-  changed_when: false
+- name: GoReplay | Configure
+  import_tasks: configure.yml
   tags:
-    - skip_ansible_lint
+    - configure
+    - goreplay_configure
 
-- name: GOR | Link binary
-  file:
-    src: "{{ gor_bin_dir }}/goreplay"
-    dest: /usr/bin/gor
-    state: link
-
-- name: GOR | Template out gor.service file
-  template:
-    src: gor.service.j2
-    dest: /etc/systemd/system/gor.service
-    mode: '0755'
-  notify: restart gor
-
-- name: GOR | Template out gor environment file
-  template:
-    src: gor.environment.j2
-    dest: /etc/default/gor
-    mode: '0644'
-  notify: restart gor
-
-- name: GOR | Configuring service
-  systemd:
-    name: gor
-    state: "{{ gor_service_state }}"
-    enabled: "{{ gor_service_enabled }}"
-    daemon_reload: yes
+- name: GoReplay | Service
+  import_tasks: service.yml
+  tags:
+    - service
+    - goreplay_service

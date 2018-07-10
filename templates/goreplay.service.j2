@@ -5,9 +5,9 @@ After=network-online.target
 
 [Service]
 Restart=on-failure
-EnvironmentFile=/etc/default/gor
-ExecStart=/bin/sh -c "{{ gor_bin_dir }}/goreplay ${GOR_INPUT} ${GOR_OUTPUT} ${GOR_OPTIONS}"
-User={{ gor_user }}
+EnvironmentFile=/etc/default/goreplay
+ExecStart=/bin/sh -c "{{ goreplay_bin_dir }}/goreplay ${GOR_INPUT} ${GOR_OUTPUT} ${GOR_OPTIONS}"
+User={{ goreplay_user }}
 ExecReload=/bin/kill -HUP $MAINPID
 KillSignal=SIGTERM
 

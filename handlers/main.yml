@@ -1,6 +1,6 @@
 ---
-- name: restart gor
+- name: restart goreplay
   systemd:
-    name: gor
+    name: goreplay
     state: restarted
-  when: gor_service_state != 'stopped'
+  when: goreplay_service_state != 'stopped'

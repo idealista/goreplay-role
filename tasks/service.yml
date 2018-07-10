@@ -1,0 +1,7 @@
+---
+- name: GoReplay | Configuring service
+  systemd:
+    name: goreplay
+    state: "{{ goreplay_service_state }}"
+    enabled: "{{ goreplay_service_enabled }}"
+    daemon_reload: yes

@@ -1,0 +1,5 @@
+GOR_INPUT={{ goreplay_input }}
+GOR_OUTPUT={{ goreplay_output }}
+{% if goreplay_options is defined %}
+GOR_OPTIONS={% for option in goreplay_options %}--{{ option }}{% if not loop.last %} {% endif %}{% endfor %}
+{% endif%}
