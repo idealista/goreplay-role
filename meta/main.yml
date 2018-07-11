@@ -1,5 +1,6 @@
 ---
 galaxy_info:
+  role_name: goreplay-role
   company: Idealista S.A.U.
   description: GoReplay role, to replay traffic
   min_ansible_version: 2.4.0.0
