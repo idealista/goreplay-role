@@ -34,8 +34,8 @@ For testing purposes, [Molecule](https://molecule.readthedocs.io/) with [Vagrant
 Create or add to your roles dependency file (e.g requirements.yml):
 
 ```
-- src: idealista.gor-role
-  version: 0.0.3
+- src: idealista.goreplay_role
+  version: 1.0.0
   name: goreplay
 ```
 

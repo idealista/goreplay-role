@@ -98,7 +98,7 @@ docker:
       ansible_groups:
         - prod
         - fileOutput
-      image: geerlingguy/docker-debian8-ansible
+      image: geerlingguy/docker-debian9-ansible
       image_version: latest
       privileged: True
       cap_add:
@@ -110,7 +110,7 @@ docker:
       ansible_groups:
         - test01
         - fileOutput
-      image: geerlingguy/docker-debian8-ansible
+      image: geerlingguy/docker-debian9-ansible
       image_version: latest
       privileged: True
       cap_add:
