@@ -1,4 +1,11 @@
 ---
+- name: GoReplay | Ensure prerequisites are installed
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+    cache_valid_time: 3600
+  with_items: "{{ goreplay_required_libs }}"
+
 - name: GoReplay | Ensure goreplay group
   group:
     name: "{{ goreplay_group }}"

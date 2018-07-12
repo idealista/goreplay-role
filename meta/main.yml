@@ -9,6 +9,7 @@ galaxy_info:
     - name: Debian
       versions:
         - jessie
+        - stretch
   categories:
     - web
     - monitoring

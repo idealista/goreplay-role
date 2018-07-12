@@ -43,7 +43,9 @@ vagrant:
     - "landrush.guest_redirect_dns = false"
   # molecule's --platform option will look for these names
   platforms:
-    - name: Debian
+    - name: Debian8
+      box: debian/jessie64
+    - name: Debian9
       box: debian/jessie64
 
   providers:
@@ -79,7 +81,6 @@ vagrant:
           type: dhcp
           auto_config: true
 
-
 docker:
   containers:
     - name: prod01.cont
@@ -98,7 +99,7 @@ docker:
       ansible_groups:
         - prod
         - fileOutput
-      image: geerlingguy/docker-debian8-ansible
+      image: geerlingguy/docker-debian9-ansible
       image_version: latest
       privileged: True
       cap_add:
@@ -110,7 +111,7 @@ docker:
       ansible_groups:
         - test01
         - fileOutput
-      image: geerlingguy/docker-debian8-ansible
+      image: geerlingguy/docker-debian9-ansible
       image_version: latest
       privileged: True
       cap_add:
