@@ -43,7 +43,9 @@ vagrant:
     - "landrush.guest_redirect_dns = false"
   # molecule's --platform option will look for these names
   platforms:
-    - name: Debian
+    - name: Debian8
+      box: debian/jessie64
+    - name: Debian9
       box: debian/jessie64
 
   providers:
@@ -78,7 +80,6 @@ vagrant:
         - network_name: private_network
           type: dhcp
           auto_config: true
-
 
 docker:
   containers:
