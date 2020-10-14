@@ -1,0 +1,35 @@
+---
+
+file:
+  {{ goreplay_bin_path }}:
+  
+    owner: {{ goreplay_user }}
+    group: {{ goreplay_group }}
+    
+    exists: true
+    filetype: directory
+
+# port:
+# # Check port at IPv6
+# # https://github.com/aelsabbahy/goss/issues/177
+#   tcp6:{{ goreplay_port }}:
+#     listening: true
+#     ip:
+#     - '::'
+
+service:
+  goreplay:
+    enabled: true
+    running: true 
+process:
+  {{ goreplay_exec_name }}:
+    running: true
+user:
+  {{ goreplay_user }}:
+    exists: true
+    groups:
+      - {{ goreplay_group }}
+    shell: /usr/sbin/nologin
+group:
+  {{ goreplay_group }}:
+    exists: true

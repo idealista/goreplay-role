@@ -1,0 +1,5 @@
+---
+- name: Converge
+  hosts: goreplay_group
+  roles:
+    - role: goreplay-role
