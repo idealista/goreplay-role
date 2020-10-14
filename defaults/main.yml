@@ -26,13 +26,15 @@ goreplay_force_reinstall: false
 
 
 ## Service options
+# Documentation
+goreplay_documentation: https://github.com/buger/goreplay
 
 # User and group
 goreplay_user: goreplay
 goreplay_group: goreplay
 
 # start on boot
-goreplay_service_enabled: no # GoReplay disabled by default
+goreplay_service_enabled: yes
 # current state: started, stopped
 goreplay_service_state: started
 
