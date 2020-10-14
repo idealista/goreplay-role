@@ -31,7 +31,7 @@
     - "{{ goreplay_output_path }}"
 
 - name: GoReplay | Check goreplay version
-  command: "{{ goreplay_exec_name }} --version"
+  command: "cat {{ goreplay_installed_version }}"
   register: goreplay_check
   changed_when: false
   ignore_errors: true
@@ -40,14 +40,14 @@
   get_url:
     url: "{{ goreplay_url }}/{{ goreplay_package }}"
     dest: "{{ goreplay_package_path }}"
-  when: goreplay_force_reinstall or goreplay_check is failed or goreplay_version not in goreplay_check.stderr
+  when: goreplay_force_reinstall or goreplay_check is failed or goreplay_version not in goreplay_check.stdout
 
 - name: GoReplay | Extract goreplay
   unarchive:
     src: "{{ goreplay_package_path }}"
     dest: "{{ goreplay_download_path }}"
     remote_src: True
-  when: goreplay_force_reinstall or goreplay_check is failed or goreplay_version not in goreplay_check.stderr
+  when: goreplay_force_reinstall or goreplay_check is failed or goreplay_version not in goreplay_check.stdout
   notify: restart goreplay
 
 - name: GoReplay | Copy binary
@@ -57,9 +57,18 @@
     owner: "{{ goreplay_user }}"
     group: "{{ goreplay_group }}"
     remote_src: True
-    mode: 0755
-  when: goreplay_force_reinstall or goreplay_check is failed or goreplay_version not in goreplay_check.stderr
+    mode: 0744 # I do not want other users to be able to execute it because it can open raw sockets
+  when: goreplay_force_reinstall or goreplay_check is failed or goreplay_version not in goreplay_check.stdout
   notify: restart goreplay
+
+- name: GoReplay | Copy version number file
+  template:
+    src: version.txt.j2
+    dest: "{{ goreplay_installed_version }}"
+    owner: "{{ goreplay_user }}"
+    group: "{{ goreplay_group }}"
+    mode: 0644
+  when: goreplay_force_reinstall or goreplay_check is failed or goreplay_version not in goreplay_check.stdout
 
 - name: GoReplay | Link binary
   file:

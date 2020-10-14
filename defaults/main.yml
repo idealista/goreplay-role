@@ -18,6 +18,7 @@ goreplay_src_bin: "{{ goreplay_download_path }}/{{ goreplay_exec_name }}"
 goreplay_root_path: /opt/goreplay
 goreplay_bin_path: "{{ goreplay_root_path }}/bin"
 goreplay_output_path: "{{ goreplay_root_path }}/out"
+goreplay_installed_version: "{{ goreplay_root_path }}/version.txt"
 goreplay_exec_name: gor
 
 # Set to true to force the reinstallation of the binary
