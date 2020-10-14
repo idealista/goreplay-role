@@ -9,13 +9,16 @@
 - name: GoReplay | Ensure goreplay group
   group:
     name: "{{ goreplay_group }}"
+    system: yes
+    state: present
 
 - name: GoReplay | Ensure goreplay user
   user:
     name: "{{ goreplay_user }}"
     group: "{{ goreplay_group }}"
-    home: /bin/false
-    createhome: yes
+    system: yes
+    shell: /usr/sbin/nologin
+    createhome: no
 
 - name: GoReplay | Ensure goreplay dirs exists
   file:
@@ -24,43 +27,47 @@
     owner: "{{ goreplay_user }}"
     group: "{{ goreplay_group }}"
   with_items:
-    - "{{ goreplay_bin_dir }}"
-    - "{{ goreplay_output_dir }}"
+    - "{{ goreplay_bin_path }}"
+    - "{{ goreplay_output_path }}"
+
+- name: GoReplay | Check goreplay version
+  command: "{{ goreplay_exec_name }} --version"
+  register: goreplay_check
+  changed_when: false
+  ignore_errors: true
 
 - name: GoReplay | Download goreplay
   get_url:
     url: "{{ goreplay_url }}/{{ goreplay_package }}"
-    dest: "/tmp/{{ goreplay_package }}"
-  register: download_goreplay
+    dest: "{{ goreplay_package_path }}"
+  when: goreplay_force_reinstall or goreplay_check is failed or goreplay_version not in goreplay_check.stderr
 
 - name: GoReplay | Extract goreplay
   unarchive:
-    src: "/tmp/{{ goreplay_package }}"
-    dest: "/tmp/"
-    copy: no
-  when: download_goreplay|changed
-  tags:
-    skip_ansible_lint
+    src: "{{ goreplay_package_path }}"
+    dest: "{{ goreplay_download_path }}"
+    remote_src: True
+  when: goreplay_force_reinstall or goreplay_check is failed or goreplay_version not in goreplay_check.stderr
+  notify: restart goreplay
 
 - name: GoReplay | Copy binary
   copy:
-    src: "/tmp/goreplay"
-    dest: "{{ goreplay_bin_dir }}/goreplay"
-    remote_src: True
+    src: "{{ goreplay_src_bin }}"
+    dest: "{{ goreplay_bin_path }}/{{ goreplay_exec_name }}"
     owner: "{{ goreplay_user }}"
     group: "{{ goreplay_group }}"
-    mode: "0755"
+    remote_src: True
+    mode: 0755
+  when: goreplay_force_reinstall or goreplay_check is failed or goreplay_version not in goreplay_check.stderr
   notify: restart goreplay
-
-- name: GoReplay | Ensure goreplay can open raw sockets
-  command: >
-    setcap "cap_net_raw,cap_net_admin+eip" {{ goreplay_bin_dir }}/goreplay
-  changed_when: false
-  tags:
-    - skip_ansible_lint
 
 - name: GoReplay | Link binary
   file:
-    src: "{{ goreplay_bin_dir }}/goreplay"
-    dest: /usr/bin/goreplay
+    src: "{{ goreplay_bin_path }}/{{ goreplay_exec_name }}"
+    dest: /usr/bin/{{ goreplay_exec_name }}
     state: link
+
+- name: GoReplay | Ensure goreplay can open raw sockets
+  command: >
+    setcap "cap_net_raw,cap_net_admin+eip" {{ goreplay_bin_path }}/{{ goreplay_exec_name }}
+  changed_when: false
