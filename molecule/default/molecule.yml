@@ -16,6 +16,10 @@ platforms:
       - SYS_ADMIN
       - NET_RAW
       - NET_ADMIN
+    exposed_ports:
+      - 8080/tcp
+    #published_ports:
+      #- 0.0.0.0:8080:8080/tcp
     tmpfs:
       - /tmp
       - /run
@@ -24,6 +28,32 @@ platforms:
       - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
     command: '/lib/systemd/systemd'
     stop_signal: 'RTMIN+3'
+    networks:
+      - name: goreplay_network
+        links:
+        - mockserver:mockserver
+  - name: mockserver
+    groups:
+      - goreplay_group
+    image: mockserver/mockserver:mockserver-5.11.1
+    privileged: false
+    capabilities:
+      - SYS_ADMIN
+    tmpfs:
+      - '/tmp'
+    stop_signal: 'RTMIN+3'
+    networks:
+      - name: goreplay_network
+        links:
+        - goreplay:goreplay
+    exposed_ports:
+      - 1080/tcp
+    published_ports:
+      - 0.0.0.0:1080:1080/tcp
+    pre_build_image: true
+    override_command: false
+    
+
 provisioner:
   name: ansible
 verifier:

@@ -1,3 +1,5 @@
 ---
 
 goreplay_private_tmp: false
+goreplay_input: '--input-raw :8080'
+goreplay_output: '--output-http http://mockserver:1080'

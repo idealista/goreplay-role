@@ -2,25 +2,14 @@
 
 file:
   {{ goreplay_bin_path }}:
-  
     owner: {{ goreplay_user }}
     group: {{ goreplay_group }}
-    
     exists: true
     filetype: directory
-
-# port:
-# # Check port at IPv6
-# # https://github.com/aelsabbahy/goss/issues/177
-#   tcp6:{{ goreplay_port }}:
-#     listening: true
-#     ip:
-#     - '::'
-
 service:
   goreplay:
     enabled: true
-    running: true 
+    running: true
 process:
   {{ goreplay_exec_name }}:
     running: true
@@ -33,3 +22,18 @@ user:
 group:
   {{ goreplay_group }}:
     exists: true
+http:
+  http://localhost:8080:
+    # required attributes
+    status: 200
+    # optional attributes
+    #allow-insecure: false
+    #no-follow-redirects: false # Setting this to true will NOT follow redirects
+    #timeout: 1000
+    #request-headers: # Set request header values
+    #   - "Content-Type: text/html"
+    #headers: [] # Check http response headers for these patterns (e.g. "Content-Type: text/html")
+    #body: [] # Check http response content for these patterns
+    #username: "" # username for basic auth
+    #password: "" # password for basic auth
+    #skip: false
