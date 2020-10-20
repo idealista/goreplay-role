@@ -3,7 +3,11 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a changelog](https://github.com/olivierlacan/keep-a-changelog).
 
 ## [Unreleased](https://github.com/idealista/goreplay-role/tree/develop)
+### Added
+- *[#16](https://github.com/idealista/goreplay-role/issues/16) Use molecule 3 and goss in tests and add e2e tests* @pablogcaldito
 
+### Fixed
+- *[#17](https://github.com/idealista/goreplay-role/issues/17) Playbook has url broken and does not work with new versions of ansible* @pablogcaldito
 ## [1.1.0](https://github.com/idealista/goreplay-role/tree/1.1.0)
 ## [Full Changelog](https://github.com/idealista/goreplay-role/compare/1.0.0...1.1.0)
 ### Added
