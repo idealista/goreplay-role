@@ -29,6 +29,9 @@ goreplay_force_reinstall: false
 # Documentation
 goreplay_documentation: https://github.com/buger/goreplay
 
+# PrivateTmp variable
+goreplay_private_tmp: true
+
 # User and group
 goreplay_user: goreplay
 goreplay_group: goreplay
