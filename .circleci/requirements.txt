@@ -1,6 +1,0 @@
-ansible==2.4.3.0
-molecule==1.25.0
-ansible-lint==3.4.20
-testinfra==1.7.1
-pytest==3.5.0
-docker
