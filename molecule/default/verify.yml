@@ -20,6 +20,12 @@
     - ../../defaults/main.yml
 
   tasks:
+    - name: Install curl
+      apt:
+        name: curl
+        state: present
+        update_cache: yes
+
     - name: Download and install Goss
       get_url:
         url: "{{ goss_url }}"

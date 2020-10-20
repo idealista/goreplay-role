@@ -1,5 +1,7 @@
 ---
 
 goreplay_private_tmp: false
-goreplay_input: '--input-raw :8080'
-goreplay_output: '--output-http http://mockserver:1080'
+node_exporter_private_tmp: false
+goreplay_input: '"--input-raw :9100"'
+goreplay_output: '"--output-http http://mockserver:1080"'
+#goreplay_output: '"--output-http https://caldito.free.beeceptor.com"'

@@ -23,17 +23,14 @@ group:
   {{ goreplay_group }}:
     exists: true
 http:
-  http://localhost:8080:
-    # required attributes
+  # query to service to be replayed by goreplay
+  http://localhost:9100/metrics:
     status: 200
-    # optional attributes
-    #allow-insecure: false
-    #no-follow-redirects: false # Setting this to true will NOT follow redirects
-    #timeout: 1000
-    #request-headers: # Set request header values
-    #   - "Content-Type: text/html"
-    #headers: [] # Check http response headers for these patterns (e.g. "Content-Type: text/html")
-    #body: [] # Check http response content for these patterns
-    #username: "" # username for basic auth
-    #password: "" # password for basic auth
-    #skip: false
+command:
+  # verify that the replay has been received correctly
+  mockserververify:
+    exit-status: 0
+    exec: 'curl -s -w "%{http_code}\n" -X PUT "http://mockserver:1080/mockserver/verify" -d "{ \"httpRequest\" : {\"method\" : \"GET\", \"path\" : \"/metrics\" },\"times\": {\"atLeast\": 1}}"'
+    stdout:
+    - 202
+
