@@ -1,4 +1,0 @@
----
-goreplay_input: --input-raw :8080
-goreplay_output: --output-http=http://test01:8080
-goreplay_service_state: started

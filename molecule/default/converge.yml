@@ -1,0 +1,6 @@
+---
+- name: Converge
+  hosts: goreplay
+  roles:
+    - role: goreplay-role
+    - role: node_exporter

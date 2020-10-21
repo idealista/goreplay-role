@@ -1,10 +1,11 @@
 ![Logo](logo.gif)
 
-[![CircleCI](https://circleci.com/gh/idealista/gor-role.svg?style=svg)](https://circleci.com/gh/idealista/gor-role)
+[![Build Status](https://travis-ci.org/idealista/goreplay-role.png)](https://travis-ci.org/idealista/goreplay-role)
+[![Ansible Galaxy](https://img.shields.io/badge/galaxy-idealista.goreplay-role-B62682.svg)](https://galaxy.ansible.com/idealista/goreplay-role)
 
 # GoReplay Ansible role
 
-This ansible role installs and configure GoReplay.
+This ansible role installs and configure GoReplay. Supports debian stretch and buster.
 
 - [Getting Started](#getting-started)
 	- [Prerequisities](#prerequisities)
@@ -24,7 +25,7 @@ These instructions will get you a copy of the role for your ansible playbook. On
 
 ### Prerequisities
 
-Ansible 2.4.0.0 version installed.
+Ansible 2.9.x version installed.
 Inventory destination should be a Debian environment.
 
 For testing purposes, [Molecule](https://molecule.readthedocs.io/) with [Vagrant](https://www.vagrantup.com/) as driver (with [landrush](https://github.com/vagrant-landrush/landrush) plugin) and [VirtualBox](https://www.virtualbox.org/) as provider.
@@ -35,7 +36,7 @@ Create or add to your roles dependency file (e.g requirements.yml):
 
 ```
 - src: idealista.goreplay_role
-  version: 1.0.0
+  version: 2.0.0
   name: goreplay
 ```
 
@@ -45,35 +46,21 @@ Install the role with ansible-galaxy command:
 ansible-galaxy install -p roles -r requirements.yml -f
 ```
 
-Use in a playbook:
-
-```
----
-- hosts: someserver
-  roles:
-    - { role: goreplay,
-        goreplay_input: '--input-raw :80',
-        goreplay_output: '--output-http=http://test01:80',
-        goreplay_service_enabled: yes
-      }
-```
 
 ## Usage
 
-To enable GoReplay and replicate traffic on another host
+To enable GoReplay and replicate traffic on another host override the following variables
 
 ```
-goreplay_input: --input-raw :80
-goreplay_output: --output-http=http://test01:80
-goreplay_service_enabled: yes
+goreplay_input: '"--input-raw :80"'
+goreplay_output: '"--output-http http://test01:80"'
 ```
 
 To save it to a file
 
 ```
-goreplay_input: --input-raw :80
+goreplay_input: '"--input-raw :80"'
 goreplay_output: "--output-file={{ goreplay_output_dir }}/requests.gor"
-goreplay_service_enabled: yes
 ```
 
 !Stop GoReplay to retrieve the file, otherwise you could lost last requests https://github.com/buger/gor/wiki/Saving-and-Replaying-from-file#buffered-file-output
@@ -92,9 +79,8 @@ sudo service goreplay stop
 Or start the service with a low flush interval
 
 ```
-goreplay_input: --input-raw :80
+goreplay_input: '"--input-raw :80"'
 goreplay_output: "--output-file={{ goreplay_output_dir }}/requests.gor"
-goreplay_service_enabled: yes
 goreplay_options:
   - output-file-flush-interval 0m1s
 ```

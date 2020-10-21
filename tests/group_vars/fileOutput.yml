@@ -1,7 +1,0 @@
----
-goreplay_input: --input-raw :8080
-goreplay_output: "--output-file={{ goreplay_output_dir }}/requests.gor"
-goreplay_service_enabled: no
-goreplay_service_state: started
-goreplay_options:
-  - output-file-flush-interval=2s

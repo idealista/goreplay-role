@@ -2,11 +2,13 @@
 Description=go replay
 Requires=network-online.target
 After=network-online.target
+Description={{ goreplay_documentation }}
 
 [Service]
+PrivateTmp={{ goreplay_private_tmp }}
 Restart=on-failure
 EnvironmentFile=/etc/default/goreplay
-ExecStart=/bin/sh -c "{{ goreplay_bin_dir }}/goreplay ${GOR_INPUT} ${GOR_OUTPUT} ${GOR_OPTIONS}"
+ExecStart=/bin/sh -c "{{ goreplay_bin_path }}/{{ goreplay_exec_name }} ${GOR_INPUT} ${GOR_OUTPUT} ${GOR_OPTIONS}"
 User={{ goreplay_user }}
 ExecReload=/bin/kill -HUP $MAINPID
 KillSignal=SIGTERM

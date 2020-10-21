@@ -1,13 +1,43 @@
 ---
+
+## General
+
+# Version
+goreplay_version: 1.2.0
+
+# Packege URL
+goreplay_url: "https://github.com/buger/goreplay/releases/download/v{{ goreplay_version }}"
+goreplay_package: "gor_v{{ goreplay_version }}_x64.tar.gz"
+
+# Package paths
+goreplay_download_path: /usr/src
+goreplay_package_path: "{{ goreplay_download_path }}/{{ goreplay_package }}"
+goreplay_src_bin: "{{ goreplay_download_path }}/{{ goreplay_exec_name }}"
+
+# Installation paths
+goreplay_root_path: /opt/goreplay
+goreplay_bin_path: "{{ goreplay_root_path }}/bin"
+goreplay_output_path: "{{ goreplay_root_path }}/out"
+goreplay_installed_version: "{{ goreplay_root_path }}/version.txt"
+goreplay_exec_name: gor
+
+# Set to true to force the reinstallation of the binary
+goreplay_force_reinstall: false
+
+
+## Service options
+# Documentation
+goreplay_documentation: https://github.com/buger/goreplay
+
+# PrivateTmp variable
+goreplay_private_tmp: true
+
+# User and group
 goreplay_user: goreplay
 goreplay_group: goreplay
-goreplay_root_dir: /opt/goreplay
-goreplay_bin_dir: "{{ goreplay_root_dir }}/bin"
-goreplay_output_dir: "{{ goreplay_root_dir }}/out"
-goreplay_version: 0.16.1
 
 # start on boot
-goreplay_service_enabled: no # GoReplay disabled by default
+goreplay_service_enabled: yes
 # current state: started, stopped
 goreplay_service_state: started
 
