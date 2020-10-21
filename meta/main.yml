@@ -1,15 +1,16 @@
 ---
 galaxy_info:
   role_name: goreplay-role
+  author: idealista
   company: Idealista S.A.U.
   description: GoReplay role, to replay traffic
-  min_ansible_version: 2.4.0.0
+  min_ansible_version: 2.9.0
   license: Apache 2.0
   platforms:
     - name: Debian
       versions:
-        - jessie
         - stretch
-  categories:
+        - buster
+  galaxy_tags:
     - web
     - monitoring

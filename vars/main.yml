@@ -1,6 +1,4 @@
 ---
-goreplay_url: "https://github.com/buger/gor/releases/download/v{{ goreplay_version }}"
-goreplay_package: "gor_{{ goreplay_version }}_x64.tar.gz"
 
 goreplay_required_libs:
   - libcap2-bin

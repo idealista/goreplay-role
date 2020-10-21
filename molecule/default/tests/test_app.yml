@@ -1,0 +1,36 @@
+---
+
+file:
+  {{ goreplay_bin_path }}:
+    owner: {{ goreplay_user }}
+    group: {{ goreplay_group }}
+    exists: true
+    filetype: directory
+service:
+  goreplay:
+    enabled: true
+    running: true
+process:
+  {{ goreplay_exec_name }}:
+    running: true
+user:
+  {{ goreplay_user }}:
+    exists: true
+    groups:
+      - {{ goreplay_group }}
+    shell: /usr/sbin/nologin
+group:
+  {{ goreplay_group }}:
+    exists: true
+http:
+  # query to service to be replayed by goreplay
+  http://localhost:9100/metrics:
+    status: 200
+command:
+  # verify that the replay has been received correctly
+  mockserververify:
+    exit-status: 0
+    exec: 'curl -s -w "%{http_code}\n" -X PUT "http://mockserver:1080/mockserver/verify" -d "{ \"httpRequest\" : {\"method\" : \"GET\", \"path\" : \"/metrics\" },\"times\": {\"atLeast\": 1}}"'
+    stdout:
+    - 202
+
