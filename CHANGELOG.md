@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a changelog](https://github.com/olivierlacan/keep-a-changelog).
 
 ## [Unreleased](https://github.com/idealista/goreplay-role/tree/develop)
+### Modified
+- *[#27](https://github.com/idealista/goreplay-role/issues/27) General role update* @abernalf
+
+### Added
+- *[#27](https://github.com/idealista/goreplay-role/issues/27) Debian 11 support* @abernalf
+
 ## [2.0.0](https://github.com/idealista/goreplay-role/tree/2.0.0) (2020-10-21)
 ## [Full Changelog](https://github.com/idealista/goreplay-role/compare/1.1.0...2.0.0)
 ### Added
